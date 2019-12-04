@@ -14,7 +14,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
-
+import filters
 
 #Step 2: "Collapse" the files to have single I/V pair instead of trace/retrace
 def collapse_iv(fileV,fileI):
