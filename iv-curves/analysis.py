@@ -54,8 +54,12 @@ for file in os.listdir('data'):
 		
 		data[temperature] = {"V":V,"I":I}
 
+data_filtered = {}
 #Step 3: Analysis
 # Get creative!
+for item in data:
+    iv_vals = data[item]
+    data_filtered[item] = filters.lowpass(iv_vals["V"],iv_vals["I"],50)
 
 
 #Step 4: Plotting loaded files
