@@ -1,0 +1,48 @@
+Command line: 
+
+To open the command line, go to the windows search and type "command line"
+
+cd - toggles to a subdirectory in the folder you are currently in (e.g. cd Documents)
+
+ls (dir on Windows) - lets you view all the files in the directory
+
+
+Sanity checks:
+
+First lets check to see if git is working. Type "git" in your command line. If you see a list of git commands, you have git working!
+
+Now lets check to see if python is working. Type "python" in your command line. If you see a python prompt appear in your command line, python is working!
+
+
+Common git commands:
+
+git clone <repo_uri> - makes a local copy of the repository on your computer. Use ls (or dir) and cd to toggle to the directory you want to clone the repository. 
+			Then type the "git clone <repo_uri> command in the command line. The <repo_uri> can be found by pressing the green clone/download
+			button on the website. On the GE network you may need to set up an ssh key to do this (ask Raj) [turns out you don't need to do this]
+
+git add <filename> - adds changes made to the local repository to the staging area.
+
+git commit -m "your message" - saves changes you made in the staging area to the local repository. Make sure you write a cool message so everyone knows 
+				what you did.
+
+git push origin master - pushes the changes you saved to the master branch. There are a few other things to do if you want to push to a branch other 
+				than master
+
+Creating a new branch: on the website select the existing branch you want to branch off of. Under the branch selection dropdown, type in the name of the 
+			branch you want to create
+
+git checkout -b <branch-name> - change the branch you want to work on on your local repository
+
+Example: Suppose you made changes to the file HelloWorld.py and you want everyone on your project to see them. 
+		Toggle (using ls/dir and cd) to the folder in your local repository where HelloWorld.py lives. Then git commands in the following order:
+		1. git add HelloWorld.py
+		2. git commit -m "I did something. Check it out." [Generally this message should be more descriptive about what you actually changed]
+		3. git push origin master  
+
+
+Some good git practices:
+
+1. Do a git pull everytime you open your local repository. Other people may have made changes to master. 
+	Otherwise, we may run into merge conflicts which are a nuisance
+
+2. Do a git pull before pushing changes to the master branch
