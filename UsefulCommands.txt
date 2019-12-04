@@ -6,6 +6,9 @@ cd - toggles to a subdirectory in the folder you are currently in (e.g. cd Docum
 
 ls (dir on Windows) - lets you view all the files in the directory
 
+Common practice is to first use ls/dir when you open the command line and then cd-ing to one of the directories that show up. This is
+done iteratively until you find the file/folder you are looking for.
+
 
 Sanity checks:
 
