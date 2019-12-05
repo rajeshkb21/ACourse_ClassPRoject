@@ -59,7 +59,7 @@ for file in os.listdir('data'):
 #Step 3: Analysis
 # Get creative!
 
-data_offset = offset.correct_offset(data)
+data_offset = offset.correct_offset(data)  #Import offset data
 
 #Step 4: Plotting loaded files
 
@@ -103,21 +103,21 @@ plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50
 plt.show()
 plt.close(fig)
 
-fig = plt.figure(2)
-plt.plot(data[300]['V'],data[300]['I'],color='red')
-plt.plot(data_offset[300]['V'],data_offset[300]['I'],color='blue')
-plt.ylabel("Current (A)")
-plt.xlabel("Voltage")
-plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-plt.legend('Original','Offset')
+#fig = plt.figure(2)
+#plt.plot(data[300]['V'],data[300]['I'],color='red')
+#plt.plot(data_offset[300]['V'],data_offset[300]['I'],color='blue')
+#plt.ylabel("Current (A)")
+#plt.xlabel("Voltage")
+#plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+#plt.legend('Original','Offset')
 
-Temp = []
-R_zero = []
-for T,dat in data_offset.items():
-    Temp.append(T)
-    R_zero.append(dat['R'])
+Temp = []   #Create Temperature vector for graph
+R_zero = []   #Create zero point resistance vector
+for T,dat in data_offset.items():   #At each temperature tested
+    Temp.append(T)                  #Append the temperature vector
+    R_zero.append(dat['R'])         #Append the resistance vector
     
 plt.figure()
-plt.scatter(Temp,R_zero)
-plt.ylabel("0-Point Resistance (Ohms)")
-plt.xlabel("Temperature (K)")
+plt.scatter(Temp,R_zero)     #Scatter plot zero point resistance vs temperature
+plt.ylabel("0-Point Resistance (Ohms)") #Resistance on the y axis
+plt.xlabel("Temperature (K)")           #Temperature on the x axis
