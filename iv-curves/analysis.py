@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 
+import offset
+
 
 #Step 2: "Collapse" the files to have single I/V pair instead of trace/retrace
 def collapse_iv(fileV,fileI):
@@ -57,6 +59,7 @@ for file in os.listdir('data'):
 #Step 3: Analysis
 # Get creative!
 
+data_offset = offset.correct_offset(data)
 
 #Step 4: Plotting loaded files
 
@@ -99,3 +102,22 @@ plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50
 
 plt.show()
 plt.close(fig)
+
+fig = plt.figure(2)
+plt.plot(data[300]['V'],data[300]['I'],color='red')
+plt.plot(data_offset[300]['V'],data_offset[300]['I'],color='blue')
+plt.ylabel("Current (A)")
+plt.xlabel("Voltage")
+plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+plt.legend('Original','Offset')
+
+Temp = []
+R_zero = []
+for T,dat in data_offset.items():
+    Temp.append(T)
+    R_zero.append(dat['R'])
+    
+plt.figure()
+plt.scatter(Temp,R_zero)
+plt.ylabel("0-Point Resistance (Ohms)")
+plt.xlabel("Temperature (K)")
