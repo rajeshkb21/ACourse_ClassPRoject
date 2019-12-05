@@ -3,6 +3,10 @@ Team members: Rajesh Bollapragada, Yohan John, Katherine Quinn, David Jasinski, 
 
 ## Project Documentation
 
+## Offsest
+##Zero Point Resistance
+
+
 ## Team Member Contributions
 
 ## Applications of Learnings
