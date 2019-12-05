@@ -27,7 +27,7 @@ def collapse_iv(fileV,fileI):
 
 #Step 1: Load all the files
 data = {}
-data_I = {}
+# data_I = {}
 
 
 #Files must end in ".txt" to be considered.
@@ -50,26 +50,27 @@ for file in os.listdir('data'):
 		
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
-        file_All_I = file_data[1:,:]
-        file_All_I = file_All_I.flatten()
+        filV, fileI = filters.notchfilter(fileV,fileI,45,55)
+#        fileV, fileI = filters.fft(fileV,fileI)
+#        fileV, fileI = filters.fft(fileV,fileI)
 		#See Step 2 for this
         V, I = collapse_iv(fileV,fileI) 
 		
         data[temperature] = {"V":V,"I":I}
-        data_I[temperature] = file_All_I
+        # data_I[temperature] = file_All_I
 
 data_filtered = {}
 #Step 3: Analysis
 
 #time = np.zeros(len(data_I)*10)
-time = np.linspace(0.001,len(data_I[1.6])*0.001,num=len(data_I[1.6]))
+#time = np.linspace(0.001,len(data_I[1.6])*0.001,num=len(data_I[1.6]))
 # Get creative!
 for item in data:
     iv_vals = data[item]
 #    allI_vals = file_All_I[item]
 #    filtered_tuple = filters.fft(iv_vals["V"],iv_vals["I"])
-    filtered_tuple = filters.bandpass(iv_vals["V"],iv_vals["I"], 0, 10)
-#    filtered_tuple = filters.notchfilter(iv_vals["V"],iv_vals["I"],400,600)
+#    filtered_tuple = filters.bandpass(iv_vals["V"],iv_vals["I"], 0, 10)
+    filtered_tuple = filters.lowpass(iv_vals["V"],iv_vals["I"],40)
     data_filtered[item] = {}
     data_filtered[item]["V"] = filtered_tuple[0]
     data_filtered[item]["I"] = filtered_tuple[1]
@@ -100,9 +101,10 @@ for T, dat in data.items():
 	plt.subplot(122)
 	plt.loglog(v,np.abs(i),color=colorVal)
 	
-plt.subplot(121)
+ax = plt.subplot(121)
 plt.ylabel("Current (A)")
 plt.xlabel("Voltage")
+ax.set_xlim([-2,2])
 plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 
 plt.subplot(122)
@@ -118,46 +120,46 @@ plt.show()
 plt.close(fig)
 
 
-
+#
 fig = plt.figure()
-
-#set the color map, and normalize it on a log scale from 1 to 300
-#Color represents the temperature of the measurement
-cmap = plt.get_cmap('rainbow')
-cNorm  = colors.LogNorm(vmin=1, vmax=300)
-scalarMap = cm.ScalarMappable(norm=cNorm, cmap=cmap)
-scalarMap._A = [] #this is needed to add a color bar later
-
-for T, dat in data_filtered.items():
-	v = dat["V"]
-	i = dat["I"]
-	colorVal = scalarMap.to_rgba(T)
-	
-	#Plot normally
-	ax1 = plt.subplot(121)
-	plt.plot(v,i,color=colorVal)
-	
-	#Plot on a log-log scale to see exponential part of the curve
-	plt.subplot(122)
-	plt.loglog(v,np.abs(i),color=colorVal)
-	
-plt.subplot(121)
-plt.ylabel("Current (A)")
-plt.xlabel("Voltage")
-plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-
-plt.subplot(122)
-plt.ylabel("Current (A)")
-plt.xlabel("Voltage")
-axis = list(plt.axis())
-ax1.set_xlim([-2,2])
-axis[0] = 4e-3
-plt.axis(axis)
-
-plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
-
-plt.show()
-plt.close(fig)
+#
+##set the color map, and normalize it on a log scale from 1 to 300
+##Color represents the temperature of the measurement
+#cmap = plt.get_cmap('rainbow')
+#cNorm  = colors.LogNorm(vmin=1, vmax=300)
+#scalarMap = cm.ScalarMappable(norm=cNorm, cmap=cmap)
+#scalarMap._A = [] #this is needed to add a color bar later
+#
+#for T, dat in data_filtered.items():
+#	v = dat["V"]
+#	i = dat["I"]
+#	colorVal = scalarMap.to_rgba(T)
+#	
+#	#Plot normally
+#	ax1 = plt.subplot(121)
+#	plt.plot(v,i,color=colorVal)
+#	
+#	#Plot on a log-log scale to see exponential part of the curve
+#	plt.subplot(122)
+#	plt.loglog(v,np.abs(i),color=colorVal)
+#	
+#plt.subplot(121)
+#plt.ylabel("Current (A)")
+#plt.xlabel("Voltage")
+#plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+#
+#plt.subplot(122)
+#plt.ylabel("Current (A)")
+#plt.xlabel("Voltage")
+#axis = list(plt.axis())
+#ax1.set_xlim([-2,2])
+#axis[0] = 4e-3
+#plt.axis(axis)
+#
+#plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
+#
+#plt.show()
+#plt.close(fig)
 
 
 # plotting filered data
