@@ -15,7 +15,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 
-from calculateErrors import *
+#from calculateErrors import *
+from plotErrors import *
 
 
 #Step 2: "Collapse" the files to have single I/V pair instead of trace/retrace
@@ -36,35 +37,39 @@ data = {}
 regex = '^([\d\.]+)[Kk]\.txt$'
 
 for file in os.listdir('data'):
-	#Checks if file name matches pattern
-	good_file = re.search(regex,file)
-	if good_file:
-		#If so, pattern grabbed the temperature as a "group"
-		temperature = float(good_file.groups()[0])
-		
-		#Load the file using numpy loadtxt to put into array
-		file_data = np.loadtxt('data/'+file,skiprows=3).transpose()
-		
-		#First column is voltage...
-		fileV = file_data[0,:]
-		
-		#And the other 10 are all current
-		fileI = np.mean(file_data[1:,:],0)
-
-		
-		#See Step 2 for this
-		V, I = collapse_iv(fileV,fileI) 
-		
-		data[temperature] = {"V":V,"I":I}
+    #Checks if file name matches pattern
+    good_file = re.search(regex,file)
+    
+    if good_file:
+        
+        #If so, pattern grabbed the temperature as a "group"
+        temperature = float(good_file.groups()[0])	
+        
+        #Load the file using numpy loadtxt to put into array
+        file_data = np.loadtxt('data/'+file,skiprows=3).transpose()
+        
+        #First column is voltage...
+        fileV = file_data[0,:]
+        
+        #And the other 10 are all current
+        fileI = np.mean(file_data[1:,:],0)
+        
+        #See Step 2 for this
+        V, I = collapse_iv(fileV,fileI)
+        data[temperature] = {"V":V,"I":I}
+        
+        errorData = {}
+        errorData[temperature] = {"V":V, "errors":I}
 
 #Step 3: Analysis
 # Get creative!
-calculateErrors(file_data)
+#calculateErrors(file_data)
 
 #Step 4: Plotting loaded files
 
 #Make a new window		
 fig = plt.figure()
+plotErrors(data, errorData)
 
 #set the color map, and normalize it on a log scale from 1 to 300
 #Color represents the temperature of the measurement
