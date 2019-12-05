@@ -3,7 +3,7 @@ Team members: Rajesh Bollapragada, Yohan John, Katherine Quinn, David Jasinski, 
 
 ## Project Documentation
 
-## Leakage Current Offset Correction and Zero Point Resistance
+### Leakage Current Offset Correction and Zero Point Resistance
 When there is zero voltage placed across this circuit, ideally there should be no current through the circuit. However, there is a small leakage current across the circuit which offsets the remaining current data by a constant amount. 
 To account for this, the file offset.py is used to subtract out any offset and make sure that the current is 0 Amps at all temperatures when there is 0 V input. 
 
@@ -17,7 +17,7 @@ plotted vs temperature.
 
 ## Team Member Contributions
 
-######Leakage Current Offset Correction and Zero Point Resistance:
+###### Leakage Current Offset Correction and Zero Point Resistance:
  - Code: Yohan John
  - Code: Travis Oneil
  - Documentation: David Jasinski
