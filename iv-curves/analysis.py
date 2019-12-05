@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 
+from calculateErrors import *
+
 
 #Step 2: "Collapse" the files to have single I/V pair instead of trace/retrace
 def collapse_iv(fileV,fileI):
@@ -48,6 +50,7 @@ for file in os.listdir('data'):
 		
 		#And the other 10 are all current
 		fileI = np.mean(file_data[1:,:],0)
+
 		
 		#See Step 2 for this
 		V, I = collapse_iv(fileV,fileI) 
@@ -56,7 +59,7 @@ for file in os.listdir('data'):
 
 #Step 3: Analysis
 # Get creative!
-
+calculateErrors(file_data)
 
 #Step 4: Plotting loaded files
 
