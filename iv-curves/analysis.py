@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 
+import pwr
 
 #Step 2: "Collapse" the files to have single I/V pair instead of trace/retrace
 def collapse_iv(fileV,fileI):
@@ -56,6 +57,9 @@ for file in os.listdir('data'):
 
 #Step 3: Analysis
 # Get creative!
+data = pwr.add_power_to_dict(data)
+
+
 
 
 #Step 4: Plotting loaded files
@@ -99,3 +103,15 @@ plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50
 
 plt.show()
 plt.close(fig)
+
+
+#fignum = 1
+#plt.figure(fignum)
+#plt.clf()
+#for T, dat in data.items():
+#    v = dat["V"]
+#    p = dat["P"]
+#    colorVal = scalarMap.to_rgba(T)
+#
+#    plt.plot(v,p,color=colorVal)
+#plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
