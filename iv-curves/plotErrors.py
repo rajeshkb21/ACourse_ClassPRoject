@@ -6,9 +6,11 @@ Created on Wed Dec  4 18:43:13 2019
 """
 #INPUTS: nested dictionary output from findErrors function
 #{temp, innerDictionary}
-#innerDictionary data[temperature]= {"V":V,"errors":E}
-#INPUTS: regular nested dictionary
+#innerDictionary: data[temperature]= {"V":V,"errors":E}
+#ADD'L INPUTS: regular nested dictionary
 #outerDictionary = data.....data[temperature]= {"V":V,"I":I}
+
+#OUTPUTS:Plots regular and log-log voltage and current curves with error bars
 
 #matplotlib.pyplot.errorbar(x, y, yerr=None, xerr=None, fmt='', ecolor=None, elinewidth=None, capsize=None, barsabove=False, lolims=False, uplims=False, xlolims=False, xuplims=False, errorevery=1, capthick=None, *, data=None, **kwargs)
 #all inputs besides x and y are optional
