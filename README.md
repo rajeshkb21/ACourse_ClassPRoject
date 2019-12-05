@@ -18,9 +18,9 @@ plotted vs temperature.
 ## Team Member Contributions
 
 ###### Leakage Current Offset Correction and Zero Point Resistance:
- - Code: Yohan John
- - Code: Travis Oneil
- - Documentation: David Jasinski
+ - Code/Specialist: Yohan John
+ - Code/Scrum Master: Travis Oneil
+ - Documentation/Product Owner: David Jasinski
 
 ## Applications of Learnings
 
