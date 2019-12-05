@@ -100,10 +100,39 @@ plt.show()
 plt.close(fig)
 
 
-# write the plotting funciton like: 
-#       plot_rainbow_like(data,xKey,yKey,xLabel,yLabel)
-rbplt.plot_rainbow_like(data,'V','P','Voltage','Power')
+# # write the plotting funciton like: 
+# #       plot_rainbow_like(data,xKey,yKey,xLabel,yLabel)
+# rbplt.plot_rainbow_like(data,'V','P','Voltage','Power')
 
-#plotting resistance versus temperature
-pltRvT.plot_resistanceVtemperature(data)
+# #plotting resistance versus temperature
+# pltRvT.plot_resistanceVtemperature(data)
 
+# for T, dat in data.items():
+# 	v = dat["V"]
+# 	i = dat["I"]
+# 	colorVal = scalarMap.to_rgba(T)
+	
+# 	#Plot normally
+# 	plt.subplot(121)
+# 	plt.plot(v,i,color=colorVal)
+	
+# 	#Plot on a log-log scale to see exponential part of the curve
+# 	plt.subplot(122)
+# 	plt.loglog(v,np.abs(i),color=colorVal)
+	
+# plt.subplot(121)
+# plt.ylabel("Current (A)")
+# plt.xlabel("Voltage")
+# plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+
+# plt.subplot(122)
+# plt.ylabel("Current (A)")
+# plt.xlabel("Voltage")
+# axis = list(plt.axis())
+# axis[0] = 4e-3
+# plt.axis(axis)
+
+# plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
+
+# plt.show()
+# plt.close(fig)
