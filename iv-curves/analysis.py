@@ -39,7 +39,7 @@ for file in os.listdir('data'):
 	if good_file:
 		#If so, pattern grabbed the temperature as a "group"
 		temperature = float(good_file.groups()[0])
-		
+
 		#Load the file using numpy loadtxt to put into array
 		file_data = np.loadtxt('data/'+file,skiprows=3).transpose()
 		
@@ -99,3 +99,5 @@ plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50
 
 plt.show()
 plt.close(fig)
+    
+    

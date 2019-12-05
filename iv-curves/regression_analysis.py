@@ -8,6 +8,18 @@ import matplotlib.cm as cm
 import scipy
 from scipy import stats
 
+def LinearRegress(data):
+    temp = [1.6,100.0,10.0,12.5,150.0,15.0,200.0,20.0,250.0,2.0,300.0,30.0,3.0,40.0,4.0,50.0,5.0,7.5,75.0]
+    r_value = []
+    for item in temp:
+        slope, intercept, r, p_value, std_err = stats.linregress(data[item]["V"],data[item]["I"])
+        r_value.append(r)
+    plt.figure()
+    plt.scatter(temp,r_value)
+    plt.ylabel("Linear Regression Error")
+    plt.xlabel("Temperature [K]")
+    return
+
 def import_data():
     #Step 1: Load all the files
     data = {}
@@ -44,3 +56,4 @@ def import_data():
 
 if __name__ == "__main__":
     data = import_data()
+    LinearRegress(data)
