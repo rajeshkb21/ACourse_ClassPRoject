@@ -15,6 +15,9 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 
+import pwr
+import rbplt
+import pltRvT
 
 #Step 2: "Collapse" the files to have single I/V pair instead of trace/retrace
 def collapse_iv(fileV,fileI):
@@ -56,11 +59,14 @@ for file in os.listdir('data'):
 
 #Step 3: Analysis
 # Get creative!
+data = pwr.add_power_to_dict(data)
+
+
 
 
 #Step 4: Plotting loaded files
 
-#Make a new window		
+#Make a new window attempting to get rid of those dumb warnings
 fig = plt.figure()
 
 #set the color map, and normalize it on a log scale from 1 to 300
@@ -70,32 +76,34 @@ cNorm  = colors.LogNorm(vmin=1, vmax=300)
 scalarMap = cm.ScalarMappable(norm=cNorm, cmap=cmap)
 scalarMap._A = [] #this is needed to add a color bar later
 
+fig, (ax1,ax2) = plt.subplots(1,2)
 for T, dat in data.items():
 	v = dat["V"]
 	i = dat["I"]
 	colorVal = scalarMap.to_rgba(T)
 	
 	#Plot normally
-	plt.subplot(121)
-	plt.plot(v,i,color=colorVal)
+	ax1.plot(v,i,color=colorVal)
 	
 	#Plot on a log-log scale to see exponential part of the curve
-	plt.subplot(122)
-	plt.loglog(v,np.abs(i),color=colorVal)
+	ax2.loglog(v,np.abs(i),color=colorVal)
 	
-plt.subplot(121)
-plt.ylabel("Current (A)")
-plt.xlabel("Voltage")
-plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+ax1.set_ylabel("Current (A)")
+ax1.set_xlabel("Voltage")
+ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 
-plt.subplot(122)
-plt.ylabel("Current (A)")
-plt.xlabel("Voltage")
-axis = list(plt.axis())
-axis[0] = 4e-3
-plt.axis(axis)
+ax2.set_xlabel("Voltage")
 
 plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
 
 plt.show()
 plt.close(fig)
+
+
+# write the plotting funciton like: 
+#       plot_rainbow_like(data,xKey,yKey,xLabel,yLabel)
+rbplt.plot_rainbow_like(data,'V','P','Voltage','Power')
+
+#plotting resistance versus temperature
+pltRvT.plot_resistanceVtemperature(data)
+
