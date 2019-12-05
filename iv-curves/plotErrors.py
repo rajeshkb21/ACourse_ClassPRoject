@@ -16,37 +16,42 @@ Created on Wed Dec  4 18:43:13 2019
 #all inputs besides x and y are optional
 
 import numpy as np
-import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.colors as colors
+import matplotlib.cm as cm
+
 
 def plotErrors(data, errorData):
-	for T, dat in data.items():
-		v = dat["V"]
-		i = dat["I"]
-		colorVal = scalarMap.to_rgba(T)
-	for T, dat in errorData.items():
-		error = dat["errors"]
-		
-		#Plot normal with errorbars on top
-		plt.subplot(121)
-		plt.errorbar(v, i, error, color=colorVal)
-		
-		#Plot on a log-log scale to see exponential part of the curve
-		plt.subplot(122)
-		plt.loglog(v,np.abs(i),np.abs(error), color=colorVal)
+    cmap = plt.get_cmap('rainbow')
+    cNorm  = colors.LogNorm(vmin=1, vmax=300)
+    scalarMap = cm.ScalarMappable(norm=cNorm, cmap=cmap)
+    
+    for T, dat in data.items():
+        v = dat["V"]
+        i = dat["I"]
+        colorVal = scalarMap.to_rgba(T)
+        for T, dat in errorData.items():
+            error = dat["errors"]
+            
+            #Plot normal with errorbars on top
+            plt.subplot(121)
+            plt.errorbar(v, i, error, color=colorVal)
+            
+            #Plot on a log-log scale to see exponential part of the curve
+            plt.subplot(122)
+            plt.loglog(v,np.abs(i),np.abs(error), color=colorVal)
 	
-	
-	plt.subplot(121)
-	plt.ylabel("Current (A)")
-	plt.xlabel("Voltage")
-	plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-	
-	plt.subplot(122)
-	plt.ylabel("Current (A)")
-	plt.xlabel("Voltage")
-	axis = list(plt.axis())
-	axis[0] = 4e-3
-	plt.axis(axis)
-	
-	plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
-	
-	plt.show()
+    plt.subplot(121)
+    plt.ylabel("Current (A)")
+    plt.xlabel("Voltage")
+    plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+    
+    plt.subplot(122)
+    plt.ylabel("Current (A)")
+    plt.xlabel("Voltage")
+    axis = list(plt.axis())
+    axis[0] = 4e-3
+    plt.axis(axis)
+    
+    plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
+    plt.show()
