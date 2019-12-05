@@ -15,12 +15,25 @@ noted. These voltage and current arrays and slope values are recorded at each te
 Once fully recorded, this data is returned to the main analysis script. When back in the analysis.py file, the corrected current values are plotted vs voltage at every temperature and the 0-point resistance at each temperature is 
 plotted vs temperature.
 
+### Temperature vs. Resistance and Power Through the Resistor
+The numpy library is imported to aid in calculating Resistance and Power from the measured Voltage and Current values. Matplotlib is used to aid in plotting data.
+
+The sole function within the python file, pwr.py, takes the dictionary (segmented by temperature) of dictionaries (segmented by data like Voltage and Current), adds a key and values for Power in the subdicitonary, and returns the new dictionary of dictionaries. Power through the resistor is found using the eqution: P = V*I.
+
+The sole function within the python file, rbplt.py, takes the dictionary (segmented by temperature) of dictionaries (segmented by data like Voltage and Current) and plots them on a rainbow plot given data keys for each axis AND the label for each axis.
+
+The sole funciton within the python file, pltRvT.py, takes the dictionary (segmented by temperature) of dictionaries (segmented by data like Voltage and Current), finds the Average resistance at each temperature using the formula: R = V/I, and plots Resistance versus Temperature.
+
 ## Team Member Contributions
 
 ###### Leakage Current Offset Correction and Zero Point Resistance:
  - Code/Specialist: Yohan John
  - Code/Scrum Master: Travis Oneil
  - Documentation/Product Owner: David Jasinski
+ 
+###### Temperature vs. Resistance and Power Through the Resistor
+ - Code/Scrum Master/Documentation: William (Cole) Caynoski
+ - Code/Specialist/Product Owner: Emily Cheng
 
 ## Applications of Learnings
 
