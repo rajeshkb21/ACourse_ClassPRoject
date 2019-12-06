@@ -34,7 +34,8 @@ data = {}
 #Use simple regular expression to grab temperature
 #Test patterns matching regex using https://regex101.com/
 regex = '^([\d\.]+)[Kk]\.txt$'
-
+time_array = np.array([0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.010])
+time_array = time_array.reshape((10,1))
 for file in os.listdir('data'):
     #Checks if file name matches pattern
     good_file = re.search(regex,file)
@@ -47,34 +48,46 @@ for file in os.listdir('data'):
 		
         #First column is voltage...
         fileV = file_data[0,:]
-		
+        tempV = fileV
+        tempI = file_data[1:,:]
+        
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
-        filV, fileI = filters.notchfilter(fileV,fileI,45,55)
+        # filV, fileI = filters.notchfilter(fileV,fileI,45,55))
 #        fileV, fileI = filters.fft(fileV,fileI)
-#        fileV, fileI = filters.fft(fileV,fileI)
+        
 		#See Step 2 for this
+        # fileV, fileI = filters.lowpass(fileV,fileI, 40)
         V, I = collapse_iv(fileV,fileI) 
 		
         data[temperature] = {"V":V,"I":I}
         # data_I[temperature] = file_All_I
+m,n = filters.fft(data[75]["V"],data[75]["I"])
+#myv = np.zeros((10,1000))
+#myi = np.zeros((10,1000))
 
+# FFT Plot
+# fig = plt.figure()
+#for column in range(0,tempI.shape[1]-1):
+#    output = filters.fft(time_array,tempI[:,column])
+#    
+#plt.plot(output[0],output[1])
+
+
+    
+#output = filters.fft(time_array, n["I"])
+#plt.plot(output[0],output[1])
+#plt.close(fig)
+
+## Before filtering
+fig = plt.figure()
+plt.plot(m,n)
+plt.close(fig)
 data_filtered = {}
 #Step 3: Analysis
 
-#time = np.zeros(len(data_I)*10)
-#time = np.linspace(0.001,len(data_I[1.6])*0.001,num=len(data_I[1.6]))
+
 # Get creative!
-for item in data:
-    iv_vals = data[item]
-#    allI_vals = file_All_I[item]
-#    filtered_tuple = filters.fft(iv_vals["V"],iv_vals["I"])
-#    filtered_tuple = filters.bandpass(iv_vals["V"],iv_vals["I"], 0, 10)
-    filtered_tuple = filters.lowpass(iv_vals["V"],iv_vals["I"],40)
-    data_filtered[item] = {}
-    data_filtered[item]["V"] = filtered_tuple[0]
-    data_filtered[item]["I"] = filtered_tuple[1]
-    
 
 #Step 4: Plotting loaded files
 
@@ -104,7 +117,7 @@ for T, dat in data.items():
 ax = plt.subplot(121)
 plt.ylabel("Current (A)")
 plt.xlabel("Voltage")
-ax.set_xlim([-2,2])
+ax.set_xlim([-1,1])
 plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 
 plt.subplot(122)
