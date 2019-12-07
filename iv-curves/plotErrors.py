@@ -35,7 +35,7 @@ def plotErrors(data, errorData):
             
             #Plot normal with errorbars on top
             plt.subplot(121)
-            plt.errorbar(v, i, error, color=colorVal)
+            plt.errorbar(v, i, yerr=error, color=colorVal)
             
             #Plot on a log-log scale to see exponential part of the curve
             plt.subplot(122)

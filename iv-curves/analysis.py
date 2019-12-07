@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 
-#from calculateErrors import *
+from calculateErrors import *
 from plotErrors import *
 
 
@@ -30,6 +30,7 @@ def collapse_iv(fileV,fileI):
 
 #Step 1: Load all the files
 data = {}
+errorData = {}
 
 #Files must end in ".txt" to be considered.
 #Use simple regular expression to grab temperature
@@ -53,13 +54,14 @@ for file in os.listdir('data'):
         
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
-        
+                
         #See Step 2 for this
         V, I = collapse_iv(fileV,fileI)
+        errors = calculateErrors(fileV,fileI)
+        
         data[temperature] = {"V":V,"I":I}
         
-        errorData = {}
-        errorData[temperature] = {"V":V, "errors":I}
+        errorData[temperature] = {"V":V, "errors":errors}
 
 #Step 3: Analysis
 # Get creative!
