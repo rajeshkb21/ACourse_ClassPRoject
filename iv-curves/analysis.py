@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 
+import calculateErrors
+import plotErrors
 import offset
 import pwr
 import rbplt
@@ -31,6 +33,7 @@ def collapse_iv(fileV,fileI):
 
 #Step 1: Load all the files
 data = {}
+errorData = {}
 
 #Files must end in ".txt" to be considered.
 #Use simple regular expression to grab temperature
@@ -38,30 +41,35 @@ data = {}
 regex = '^([\d\.]+)[Kk]\.txt$'
 
 for file in os.listdir('data'):
-	#Checks if file name matches pattern
-	good_file = re.search(regex,file)
-	if good_file:
-		#If so, pattern grabbed the temperature as a "group"
-		temperature = float(good_file.groups()[0])
-		
-		#Load the file using numpy loadtxt to put into array
-		file_data = np.loadtxt('data/'+file,skiprows=3).transpose()
-		
-		#First column is voltage...
-		fileV = file_data[0,:]
-		
-		#And the other 10 are all current
-		fileI = np.mean(file_data[1:,:],0)
-		
-		#See Step 2 for this
-		V, I = collapse_iv(fileV,fileI) 
-		
-		data[temperature] = {"V":V,"I":I}
+    #Checks if file name matches pattern
+    good_file = re.search(regex,file)
+    
+    if good_file:
+        
+        #If so, pattern grabbed the temperature as a "group"
+        temperature = float(good_file.groups()[0])	
+        
+        #Load the file using numpy loadtxt to put into array
+        file_data = np.loadtxt('data/'+file,skiprows=3).transpose()
+        
+        #First column is voltage...
+        fileV = file_data[0,:]
+        
+        #And the other 10 are all current
+        fileI = np.mean(file_data[1:,:],0)
+                
+        #See Step 2 for this
+        V, I = collapse_iv(fileV,fileI)
+        errors = calculateErrors(fileV,fileI)
+        
+        data[temperature] = {"V":V,"I":I}
+        
+        errorData[temperature] = {"V":V, "errors":errors}
 
 #Step 3: Analysis
 # Get creative!
-data = pwr.add_power_to_dict(data)
 
+data = pwr.add_power_to_dict(data)
 
 
 data_offset = offset.correct_offset(data)  #Import offset data
@@ -70,6 +78,7 @@ data_offset = offset.correct_offset(data)  #Import offset data
 
 #Make a new window attempting to get rid of those dumb warnings
 fig = plt.figure()
+plotErrors(data, errorData)
 
 #set the color map, and normalize it on a log scale from 1 to 300
 #Color represents the temperature of the measurement
