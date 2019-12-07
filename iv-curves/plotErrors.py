@@ -25,7 +25,8 @@ def plotErrors(data, errorData):
     cmap = plt.get_cmap('rainbow')
     cNorm  = colors.LogNorm(vmin=1, vmax=300)
     scalarMap = cm.ScalarMappable(norm=cNorm, cmap=cmap)
-    
+    scalarMap._A = [] #this is needed to add a color bar later
+
     for T, dat in data.items():
         v = dat["V"]
         i = dat["I"]
@@ -35,23 +36,13 @@ def plotErrors(data, errorData):
             
             #Plot normal with errorbars on top
             plt.subplot(121)
-            plt.errorbar(v, i, yerr=error, color=colorVal)
+            plt.errorbar(v, i, error, color=colorVal)
             
-            #Plot on a log-log scale to see exponential part of the curve
-            plt.subplot(122)
-            plt.loglog(v,np.abs(i),np.abs(error), color=colorVal)
 	
     plt.subplot(121)
     plt.ylabel("Current (A)")
     plt.xlabel("Voltage")
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-    
-    plt.subplot(122)
-    plt.ylabel("Current (A)")
-    plt.xlabel("Voltage")
-    axis = list(plt.axis())
-    axis[0] = 4e-3
-    plt.axis(axis)
     
     plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
     plt.show()
