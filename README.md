@@ -24,16 +24,25 @@ The sole function within the python file, rbplt.py, takes the dictionary (segmen
 
 The sole funciton within the python file, pltRvT.py, takes the dictionary (segmented by temperature) of dictionaries (segmented by data like Voltage and Current), finds the Average resistance at each temperature using the formula: R = V/I, and plots Resistance versus Temperature.
 
+
+
 ### Error Analysis
+The error analysis code consists of two main sections: the Linear Regression Definition and the Exponential Regression Defininition.
 
-Error was plotted as a function of temperature. Additionally, the temperature at which an exponential fit is better for the data compared to a linear regression fit was determined.
+In the Linear Regression Definition section, the stats.lingress function is used to find the slope, intercept, r, p_value, std_err of the data. 
+Then, the R-squared values are plotted vs. Temperature.
 
+In the Exponential Regression Definition section, the np.squeeze function and the np.argwhere function are utilized to produce filtered voltage and current outputs.
+The stats function is then used to find the R-value of the filtered outputs.
+Finally,the R-squared values are plotted vs. Temperature.
 
-
+The Linear Regression and Exponetial Regression plots as a function of temperature help determine at which temperatures the Linear Regression is a better fit compared to the Exponential Regression.
 
 
 
 ## Team Member Contributions
+
+-Head Honcho: Raj Bollabragada
 
 ###### Leakage Current Offset Correction and Zero Point Resistance:
  - Code/Specialist: Yohan John
@@ -44,16 +53,25 @@ Error was plotted as a function of temperature. Additionally, the temperature at
  - Code/Scrum Master/Documentation: William (Cole) Caynoski
  - Code/Specialist/Product Owner: Emily Cheng
 
+###### Error Analysis 
+-Code/Specialist: Becky Sondelski
+-Code/Scrum Master: Raj Bollabragada
+-Documentation/Product Owner: Hannah Bower
+
 ## Applications of Learnings
 
-For Git hub
+-With the functionality of Github as an opensource database, Github allows for the comparison of methods with other programmers and scientists. Therefore, an extension of this homework would be to compare data analysis techniques of similar data with other programers/scientists on the Github platform.
 
--compare data analysis of similar data with other programers/scientists on Git hub
--if wanted to expand the project with other variables, Agile and Git hub allow you to add features easily and simultaneously
--Agile philosophy makes work focused and transparent so when new tasks are given there is no confusion and there is a clear flow for how to solve the problems
+-Additionally, if the project was to be expanded to include other variables, Agile and Git hub would allow the team to add features easily and simultaneously.
+
+-Furthermore, the Agile philosophy makes work focused and transparent so when new tasks are given, there is no confusion and there is a clear flow for how to solve the problems.
 
 
 ## Agile Retrospective
-- delta: More technical introduction Suggestion: Walking us through the Git hub structure/ commands
-- delta: more detailed Github background Suggestion: More details on how Github runs/is setup
--
+
+- Delta: More technical introduction
+  Suggestion: Walk us through the Git hub structure and commonly used commands during the class period
+
+- Delta: more detailed Github background 
+  Suggestion: Give more details and descriptions on how Github is structurally setup and runs in the class period
+
