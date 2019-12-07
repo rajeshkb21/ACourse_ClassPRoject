@@ -41,8 +41,7 @@ The Linear Regression and Exponetial Regression plots as a function of temperatu
 
 
 ## Team Member Contributions
-
--Head Honcho: Raj Bollabragada
+ - Head Honcho: Yohan John Raj Bollabragada
 
 ###### Leakage Current Offset Correction and Zero Point Resistance:
  - Code/Specialist: Yohan John
@@ -54,17 +53,17 @@ The Linear Regression and Exponetial Regression plots as a function of temperatu
  - Code/Specialist/Product Owner: Emily Cheng
 
 ###### Error Analysis 
--Code/Specialist: Becky Sondelski
--Code/Scrum Master: Raj Bollabragada
--Documentation/Product Owner: Hannah Bower
+ - Code/Specialist: Becky Sondelski
+ - Code/Scrum Master: Raj Bollapragada
+ - Documentation/Product Owner: Hannah Bower
 
 ## Applications of Learnings
 
--With the functionality of Github as an opensource database, Github allows for the comparison of methods with other programmers and scientists. Therefore, an extension of this homework would be to compare data analysis techniques of similar data with other programers/scientists on the Github platform.
+- With the functionality of Github as an opensource database, Github allows for the comparison of methods with other programmers and scientists. Therefore, an extension of this homework would be to compare data analysis techniques of similar data with other programers/scientists on the Github platform.
 
--Additionally, if the project was to be expanded to include other variables, Agile and Git hub would allow the team to add features easily and simultaneously.
+- Additionally, if the project was to be expanded to include other variables, Agile and Git hub would allow the team to add features easily and simultaneously.
 
--Furthermore, the Agile philosophy makes work focused and transparent so when new tasks are given, there is no confusion and there is a clear flow for how to solve the problems.
+- Furthermore, the Agile philosophy makes work focused and transparent so when new tasks are given, there is no confusion and there is a clear flow for how to solve the problems.
 
 
 ## Agile Retrospective
