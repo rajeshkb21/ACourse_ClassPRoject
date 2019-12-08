@@ -2,7 +2,7 @@
 Team members: Rajesh Bollapragada, Yohan John, Katherine Quinn, David Jasinski, Marissa Brennan, Sriram Boppana, Travis Oneil, Cole Caynoski, Becky Sondelski, Emily Cheng, Hannah Bower, Katelyn Angeliu 
 
 ## Project Documentation
-Filtering Interference (Lean Filter)
+### Filtering Interference (Lean Filter)
 
 The functions provided in the filter.py file were tested in the analysis.py file. The first function fft(v,i) was used in the consecutive function to transpose the 
 current data from time to frequency space. The lowpass(v,i,cutoff) function is necessary to remove frequencies above a specified threshold. In our case we wanted to 
