@@ -63,7 +63,7 @@ for file in os.listdir('data'):
         V, I = collapse_iv(fileV,fileI) 
 		
         data[temperature] = {"V":V,"I":I}
-        errors = calculateErrors(fileV,fileI)
+        errors = calculateErrors.calculateErrors(fileV,fileI)
         errorData[temperature] = {"V":V, "errors":errors}
 
 #Step 3: Analysis
@@ -126,7 +126,7 @@ for col in range(0,pI.shape[1]):
     plt.xlim([-1,1])   
 #Step 4: Plotting loaded files
 fig = plt.figure()
-plotErrors(data, errorData)
+plotErrors.plotErrors(data, errorData)
 
 #set the color map, and normalize it on a log scale from 1 to 300
 #Color represents the temperature of the measurement
