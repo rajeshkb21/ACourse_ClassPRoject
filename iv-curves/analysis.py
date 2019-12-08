@@ -49,9 +49,6 @@ for file in os.listdir('data'):
 		
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
-#        fileV, fileI = filters.lowpass(fileV,fileI,50)
-#        fileV, fileI = filters.fft(fileV,fileI)
-#        fileV, fileI = filters.fft(fileV,fileI)
 		#See Step 2 for this
         V, I = collapse_iv(fileV,fileI) 
 		
@@ -78,6 +75,12 @@ for col in range(0,pI.shape[1]):
     plt.plot(mapV2,mapI2)
     plt.xlim([0,100])
 
+f2l = plt.figure()
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.lowpass(fileV,pI[:,col],50)
+    plt.plot(mapV,mapI)
+    plt.xlim([-1,1])
+
 # High Pass Filter 75k
 f3 = plt.figure()  
 for col in range(0,pI.shape[1]):
@@ -86,14 +89,25 @@ for col in range(0,pI.shape[1]):
     plt.plot(mapV2,mapI2)
     plt.xlim([0,100])
 
+f3l = plt.figure()  
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.highpass(fileV,pI[:,col],50)
+    plt.plot(mapV,mapI)
+    plt.xlim([-1,1])
+
 # Notch Filter 75k
 f4 = plt.figure()  
 for col in range(0,pI.shape[1]):
     mapV, mapI = filters.notchfilter(fileV,pI[:,col],45,55)
     mapV2, mapI2 = filters.fft(mapV,mapI)
     plt.plot(mapV2,mapI2)
-    plt.xlim([0,100])    
-
+    plt.xlim([0,100])
+    
+f4l = plt.figure() 
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.notchfilter(fileV,pI[:,col],45,55)
+    plt.plot(mapV,mapI)
+    plt.xlim([-1,1])   
 #Step 4: Plotting loaded files
 #Make a new window		
 fig5 = plt.figure()
