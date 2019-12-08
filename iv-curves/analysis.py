@@ -96,7 +96,7 @@ for col in range(0,pI.shape[1]):
 
 #Step 4: Plotting loaded files
 #Make a new window		
-fig = plt.figure()
+fig5 = plt.figure()
 
 #set the color map, and normalize it on a log scale from 1 to 300
 #Color represents the temperature of the measurement
