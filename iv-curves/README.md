@@ -11,6 +11,7 @@ both lower and upper frequency values. Bandpass filters specify a range in which
 set for the bandpass filter were 0 Hz and 40 Hz. The notchfilter(v,i,cutoff_low, cutoff_high) function defines a low and a high frequency that can pass through and further
 filters out everything encompassing the central range between the two frequency values. Filter cutoff ranges were defined as 45 Hz and 55 Hz.  
 
+
 The analysis.py file requires importing the filters library in order for the filters functions to be applied. The key to implementing the functions in the main code is making sure 
 the data is not averaged prior to applying the filters. Raw data from the {V,I} dictionaries should be the items treated by the filter. The first step necessary is to convert the 
 values from time domain to frequency domain. If we pull up a single .txt file from the temperatures tested the first column explicitly shows voltage values, while the following 10 

@@ -13,8 +13,20 @@ both lower and upper frequency values. Bandpass filters specify a range in which
 set for the bandpass filter were 0 Hz and 40 Hz. The notchfilter(v,i,cutoff_low, cutoff_high) function defines a low and a high frequency that can pass through and further
 filters out everything encompassing the central range between the two frequency values. Filter cutoff ranges were defined as 45 Hz and 55 Hz.  
 
+### FFT before filtering at 75k
 ![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/FFT_Nofilter75k.png)
 
+### FFT after low pass (50Hz) at 75k
+![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/FFT_Lowpass50Hz_75K.png)
+
+### FFT after notch filter (45-55Hz) at 75k
+![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/FFT_Notch_Filter_45_55Hz_75k.png)
+
+### IV curve after filtering with low pass
+![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/Full_IV_Curve_Lowpass_50Hz_75K.png)
+
+### IV curve after filtering with notch filter
+![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/Full_IV_Curve_Notch_45_55Hz_75K.png)
 
 The analysis.py file requires importing the filters library in order for the filters functions to be applied. The key to implementing the functions in the main code is making sure 
 the data is not averaged prior to applying the filters. Raw data from the {V,I} dictionaries should be the items treated by the filter. The first step necessary is to convert the 
