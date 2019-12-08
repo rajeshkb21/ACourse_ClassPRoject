@@ -50,7 +50,7 @@ for file in os.listdir('data'):
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
         
-        fileV, fileI = filters.lowpass(fileV,fileI,50)
+        fileV, fileI = filters.notchfilter(fileV,fileI,45,55)
 		#See Step 2 for this
         V, I = collapse_iv(fileV,fileI) 
 		
