@@ -15,7 +15,6 @@ def linear_regression(data):
     for item in temp:
         slope, intercept, r, p_value, std_err = stats.linregress(data[item]["V"],data[item]["I"])
         r_value.append(r**2)
-    print(r_value)
     plt.figure()
     plt.scatter(temp,r_value)
     plt.title("Linear Regression R-squared Versus Temperature")
@@ -32,11 +31,11 @@ def exponential_regression(data):
         iv_dict = data[temp]
         V = iv_dict["V"]
         I = iv_dict["I"]
-        filtered_inds = np.squeeze(np.argwhere(I > 0))
+        filtered_inds = np.squeeze(np.argwhere(V > 0))
         I_filtered = I[filtered_inds]
         V_filtered = V[filtered_inds]
-        _, _, _, _, r = stats.linregress(V_filtered, I_filtered)
-        r2_vals.append((10**8)*r)
+        _, _, r, _, _ = stats.linregress(V_filtered, np.log(I_filtered))
+        r2_vals.append(r**2)
 
     plt.figure()
     plt.scatter(temp_list,r2_vals)
