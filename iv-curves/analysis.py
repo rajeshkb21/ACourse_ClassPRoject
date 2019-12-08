@@ -49,11 +49,12 @@ for file in os.listdir('data'):
 		
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
+        
+        fileV, fileI = filters.lowpass(fileV,fileI,50)
 		#See Step 2 for this
         V, I = collapse_iv(fileV,fileI) 
 		
         data[temperature] = {"V":V,"I":I}
-        # data_I[temperature] = file_All_I
 
 data_filtered = {}
 
@@ -110,7 +111,7 @@ for col in range(0,pI.shape[1]):
     plt.xlim([-1,1])   
 #Step 4: Plotting loaded files
 #Make a new window		
-fig5 = plt.figure()
+fig = plt.figure()
 
 #set the color map, and normalize it on a log scale from 1 to 300
 #Color represents the temperature of the measurement
