@@ -10,7 +10,7 @@ place a cutoff frequency at 50 Hz to remove the unnecessary high frequency noise
 data into the time domain. The highpass(v,i,cutoff) function does just the same except now high frequencies pass through the filter and low frequencies below a particular 
 threshold, in our case we selected a frequency of 0 Hz, which was filtered from our dataset. The bandpass(v,i, cutoff) function tested was used to place limitations on
 both lower and upper frequency values. Bandpass filters specify a range in which the frequencies defined pass through the values centralized between the two cutoffs. Our cutoff values 
-set for the bandpass filter were 0 Hz and 40 Hz. The notchfilter(v,i,cutoff_low, cutoff_high) function defines a low and a high frequency that can pass through and further
+set for the bandpass filter were 0 Hz and 50 Hz. The notchfilter(v,i,cutoff_low, cutoff_high) function defines a low and a high frequency that can pass through and further
 filters out everything encompassing the central range between the two frequency values. Filter cutoff ranges were defined as 45 Hz and 55 Hz.  
 
 ### FFT before filtering at 75k
