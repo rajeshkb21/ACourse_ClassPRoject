@@ -22,6 +22,9 @@ filters out everything encompassing the central range between the two frequency 
 ### FFT after notch filter (45-55Hz) at 75k
 ![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/FFT_Notch_Filter_45_55Hz_75k.png)
 
+### IV curve no filtering
+![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/IV_Curve_75k.png)
+
 ### IV curve after filtering with low pass
 ![alt text](https://github.com/rajeshkb21/ACourse_ClassPRoject/blob/leanfilter/Full_IV_Curve_Lowpass_50Hz_75K.png)
 
