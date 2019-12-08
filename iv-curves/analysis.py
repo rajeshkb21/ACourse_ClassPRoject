@@ -27,15 +27,13 @@ def collapse_iv(fileV,fileI):
 
 #Step 1: Load all the files
 data = {}
-# data_I = {}
 
 
 #Files must end in ".txt" to be considered.
 #Use simple regular expression to grab temperature
 #Test patterns matching regex using https://regex101.com/
 regex = '^([\d\.]+)[Kk]\.txt$'
-time_array = np.array([0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.010])
-time_array = time_array.reshape((10,1))
+
 for file in os.listdir('data'):
     #Checks if file name matches pattern
     good_file = re.search(regex,file)
@@ -48,49 +46,55 @@ for file in os.listdir('data'):
 		
         #First column is voltage...
         fileV = file_data[0,:]
-        tempV = fileV
-        tempI = file_data[1:,:]
-        
+		
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
-        # filV, fileI = filters.notchfilter(fileV,fileI,45,55))
+#        fileV, fileI = filters.lowpass(fileV,fileI,50)
 #        fileV, fileI = filters.fft(fileV,fileI)
-        
+#        fileV, fileI = filters.fft(fileV,fileI)
 		#See Step 2 for this
-        # fileV, fileI = filters.lowpass(fileV,fileI, 40)
         V, I = collapse_iv(fileV,fileI) 
 		
         data[temperature] = {"V":V,"I":I}
         # data_I[temperature] = file_All_I
-m,n = filters.fft(data[75]["V"],data[75]["I"])
-#myv = np.zeros((10,1000))
-#myi = np.zeros((10,1000))
 
-# FFT Plot
-# fig = plt.figure()
-#for column in range(0,tempI.shape[1]-1):
-#    output = filters.fft(time_array,tempI[:,column])
-#    
-#plt.plot(output[0],output[1])
-
-
-    
-#output = filters.fft(time_array, n["I"])
-#plt.plot(output[0],output[1])
-#plt.close(fig)
-
-## Before filtering
-fig = plt.figure()
-plt.plot(m,n)
-plt.close(fig)
 data_filtered = {}
+
 #Step 3: Analysis
+pI = np.transpose(file_data[1:,:])
 
+# FFT 75k
+f2 = plt.figure()
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.fft(fileI,pI[:,col])
+    plt.plot(mapV,mapI)
+    plt.xlim([0,100])
 
-# Get creative!
+# Low Pass Filter 75k
+f2 = plt.figure()
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.lowpass(fileV,pI[:,col],50)
+    mapV2, mapI2 = filters.fft(mapV,mapI)
+    plt.plot(mapV2,mapI2)
+    plt.xlim([0,100])
+
+# High Pass Filter 75k
+f3 = plt.figure()  
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.highpass(fileV,pI[:,col],50)
+    mapV2, mapI2 = filters.fft(mapV,mapI)
+    plt.plot(mapV2,mapI2)
+    plt.xlim([0,100])
+
+# Notch Filter 75k
+f4 = plt.figure()  
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.notchfilter(fileV,pI[:,col],45,55)
+    mapV2, mapI2 = filters.fft(mapV,mapI)
+    plt.plot(mapV2,mapI2)
+    plt.xlim([0,100])    
 
 #Step 4: Plotting loaded files
-
 #Make a new window		
 fig = plt.figure()
 
@@ -133,48 +137,5 @@ plt.show()
 plt.close(fig)
 
 
-#
-fig = plt.figure()
-#
-##set the color map, and normalize it on a log scale from 1 to 300
-##Color represents the temperature of the measurement
-#cmap = plt.get_cmap('rainbow')
-#cNorm  = colors.LogNorm(vmin=1, vmax=300)
-#scalarMap = cm.ScalarMappable(norm=cNorm, cmap=cmap)
-#scalarMap._A = [] #this is needed to add a color bar later
-#
-#for T, dat in data_filtered.items():
-#	v = dat["V"]
-#	i = dat["I"]
-#	colorVal = scalarMap.to_rgba(T)
-#	
-#	#Plot normally
-#	ax1 = plt.subplot(121)
-#	plt.plot(v,i,color=colorVal)
-#	
-#	#Plot on a log-log scale to see exponential part of the curve
-#	plt.subplot(122)
-#	plt.loglog(v,np.abs(i),color=colorVal)
-#	
-#plt.subplot(121)
-#plt.ylabel("Current (A)")
-#plt.xlabel("Voltage")
-#plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-#
-#plt.subplot(122)
-#plt.ylabel("Current (A)")
-#plt.xlabel("Voltage")
-#axis = list(plt.axis())
-#ax1.set_xlim([-2,2])
-#axis[0] = 4e-3
-#plt.axis(axis)
-#
-#plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
-#
-#plt.show()
-#plt.close(fig)
-
-
 # plotting filered data
-
 

@@ -3,8 +3,7 @@ import numpy
 
 sample_rate = 1000 #Hz
 def fft(v,i):
-    # v,i = self.get_iv()
-    fy = numpy.abs(numpy.fft.rfft(i))
+    fy = numpy.fft.rfft(i)
     fx = numpy.fft.rfftfreq(i.size, d=1./sample_rate)
     return fx, fy
 
