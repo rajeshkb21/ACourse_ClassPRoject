@@ -75,6 +75,10 @@ Finally,the R-squared values are plotted vs. Temperature.
 
 The Linear Regression and Exponetial Regression plots as a function of temperature help determine at which temperatures the Linear Regression is a better fit compared to the Exponential Regression.
 
+### Error Bars
+The error bar code calculates the standard deviation of the current data for each voltage vaule, then plots those standard deviations as error bars on the IV curve. 
+This visually indicates how much variation there is within the current measurements before they get collapsed to a single value.
+
 
 
 ## Team Member Contributions
@@ -98,6 +102,11 @@ The Linear Regression and Exponetial Regression plots as a function of temperatu
  - Code/Specialist: Becky Sondelski
  - Code/Scrum Master: Raj Bollapragada
  - Documentation/Product Owner: Hannah Bower
+ 
+###### Error Bars
+ - Code/Specialist: Katherine Quinn
+ - Code/Specialist/Documentation: Katelyn Angeliu 
+ 
 
 ## Applications of Learnings
 
