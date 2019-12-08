@@ -41,7 +41,9 @@ The Linear Regression and Exponetial Regression plots as a function of temperatu
 
 
 ## Team Member Contributions
+
  - Head Honcho: Yohan John Raj Bollabragada
+
 
 ###### Leakage Current Offset Correction and Zero Point Resistance:
  - Code/Specialist: Yohan John
