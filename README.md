@@ -81,7 +81,10 @@ The Linear Regression and Exponetial Regression plots as a function of temperatu
 
  - Head Honcho: Yohan John Raj Bollabragada
 
-
+###### Filtering
+  - Code/Specialist: Sriram Boppana
+  - Documentation/Product Owner: Marissa Brennan
+  
 ###### Leakage Current Offset Correction and Zero Point Resistance:
  - Code/Specialist: Yohan John
  - Code/Scrum Master: Travis Oneil
