@@ -3,8 +3,7 @@ import numpy
 
 sample_rate = 1000 #Hz
 def fft(v,i):
-    v,i = self.get_iv()
-    fy = np.abs(numpy.fft.rfft(i))
+    fy = numpy.fft.rfft(i)
     fx = numpy.fft.rfftfreq(i.size, d=1./sample_rate)
     return fx, fy
 
@@ -22,12 +21,12 @@ def highpass(v,i,cutoff):
 
 def bandpass(v,i,cutoff_low, cutoff_high):
     fx, fy = fft(v,i)
-    fy[numpy.logical_or(fx<cutoff_low,fx>cutoff>high)] = 0
+    fy[numpy.logical_or(fx<cutoff_low,fx>cutoff_high)] = 0
     i_bandpass = numpy.fft.irfft(fy)
     return v, i_bandpass
     
 def notchfilter(v,i,cutoff_low, cutoff_high):
-    fx, fy = fft()
+    fx, fy = fft(v,i)
     fy[numpy.logical_and(fx > cutoff_low,fx < cutoff_high)] = 0
     i_notchfilter = numpy.fft.irfft(fy)
     return v, i_notchfilter

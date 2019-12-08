@@ -14,13 +14,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cm
-
+import filters
 import calculateErrors
 import plotErrors
 import offset
 import pwr
 import rbplt
 import pltRvT
+
 
 #Step 2: "Collapse" the files to have single I/V pair instead of trace/retrace
 def collapse_iv(fileV,fileI):
@@ -35,6 +36,7 @@ def collapse_iv(fileV,fileI):
 data = {}
 errorData = {}
 
+
 #Files must end in ".txt" to be considered.
 #Use simple regular expression to grab temperature
 #Test patterns matching regex using https://regex101.com/
@@ -43,40 +45,86 @@ regex = '^([\d\.]+)[Kk]\.txt$'
 for file in os.listdir('data'):
     #Checks if file name matches pattern
     good_file = re.search(regex,file)
-    
+
     if good_file:
-        
-        #If so, pattern grabbed the temperature as a "group"
-        temperature = float(good_file.groups()[0])	
-        
-        #Load the file using numpy loadtxt to put into array
+		#If so, pattern grabbed the temperature as a "group"
+        temperature = float(good_file.groups()[0])
+		
+		#Load the file using numpy loadtxt to put into array
         file_data = np.loadtxt('data/'+file,skiprows=3).transpose()
-        
+		
         #First column is voltage...
         fileV = file_data[0,:]
-        
+		
         #And the other 10 are all current
         fileI = np.mean(file_data[1:,:],0)
-                
-        #See Step 2 for this
-        V, I = collapse_iv(fileV,fileI)
-        errors = calculateErrors(fileV,fileI)
         
+        fileV, fileI = filters.notchfilter(fileV,fileI,45,55)
+        V, I = collapse_iv(fileV,fileI) 
+		
         data[temperature] = {"V":V,"I":I}
-        
+        errors = calculateErrors(fileV,fileI)
         errorData[temperature] = {"V":V, "errors":errors}
 
 #Step 3: Analysis
 # Get creative!
 
 data = pwr.add_power_to_dict(data)
-
-
 data_offset = offset.correct_offset(data)  #Import offset data
 
-#Step 4: Plotting loaded files
 
-#Make a new window attempting to get rid of those dumb warnings
+#Step 3: Analysis
+pI = np.transpose(file_data[1:,:])
+
+# FFT 75k
+f2 = plt.figure()
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.fft(fileI,pI[:,col])
+    plt.plot(mapV,mapI)
+    plt.xlim([0,100])
+
+# Low Pass Filter 75k
+f2 = plt.figure()
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.lowpass(fileV,pI[:,col],50)
+    mapV2, mapI2 = filters.fft(mapV,mapI)
+    plt.plot(mapV2,mapI2)
+    plt.xlim([0,100])
+
+f2l = plt.figure()
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.lowpass(fileV,pI[:,col],50)
+    plt.plot(mapV,mapI)
+    plt.xlim([-1,1])
+
+# High Pass Filter 75k
+f3 = plt.figure()  
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.highpass(fileV,pI[:,col],50)
+    mapV2, mapI2 = filters.fft(mapV,mapI)
+    plt.plot(mapV2,mapI2)
+    plt.xlim([0,100])
+
+f3l = plt.figure()  
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.highpass(fileV,pI[:,col],50)
+    plt.plot(mapV,mapI)
+    plt.xlim([-1,1])
+
+# Notch Filter 75k
+f4 = plt.figure()  
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.notchfilter(fileV,pI[:,col],45,55)
+    mapV2, mapI2 = filters.fft(mapV,mapI)
+    plt.plot(mapV2,mapI2)
+    plt.xlim([0,100])
+    
+f4l = plt.figure() 
+for col in range(0,pI.shape[1]):
+    mapV, mapI = filters.notchfilter(fileV,pI[:,col],45,55)
+    plt.plot(mapV,mapI)
+    plt.xlim([-1,1])   
+#Step 4: Plotting loaded files
 fig = plt.figure()
 plotErrors(data, errorData)
 
@@ -99,16 +147,25 @@ for T, dat in data.items():
 	#Plot on a log-log scale to see exponential part of the curve
 	ax2.loglog(v,np.abs(i),color=colorVal)
 	
-ax1.set_ylabel("Current (A)")
-ax1.set_xlabel("Voltage")
-ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+ax = plt.subplot(121)
+plt.ylabel("Current (A)")
+plt.xlabel("Voltage")
+ax.set_xlim([-1,1])
+plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 
-ax2.set_xlabel("Voltage")
+plt.subplot(122)
+plt.ylabel("Current (A)")
+plt.xlabel("Voltage")
+axis = list(plt.axis())
+axis[0] = 4e-3
+plt.axis(axis)
+
 
 plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
 
 plt.show()
 plt.close(fig)
+
 
 # Offet Starts
 #fig = plt.figure(2)
