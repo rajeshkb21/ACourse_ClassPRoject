@@ -4,7 +4,7 @@ Filtering Interference (Lean Filter)
 
 The functions provided in the filter.py file were tested in the analysis.py file. The first function fft(v,i) was used in the consecutive function to transpose the 
 current data from time to frequency space. The lowpass(v,i,cutoff) function is necessary to remove frequencies above a specified threshold. In our case we wanted to 
-place a cutoff frequency at 40 Hz to remove the unnecessary high frequency noise to clean-up the data. The function also takes the inverse fft of the data to transpose the 
+place a cutoff frequency at 50 Hz to remove the unnecessary high frequency noise to clean-up the data. The function also takes the inverse fft of the data to transpose the 
 data into the time domain. The highpass(v,i,cutoff) function does just the same except now high frequencies pass through the filter and low frequencies below a particular 
 threshold, in our case we selected a frequency of 0 Hz, which was filtered from our dataset. The bandpass(v,i, cutoff) function tested was used to place limitations on
 both lower and upper frequency values. Bandpass filters specify a range in which the frequencies defined pass through the values centralized between the two cutoffs. Our cutoff values 
