@@ -4,10 +4,7 @@ Team members: Rajesh Bollapragada, Yohan John, Katherine Quinn, David Jasinski, 
 ## Project Documentation
 ### Running Code
 
-Go to 'iv_curves/main.py' and run the command 
-'''
-python main.py
-'''
+Go to `iv_curves/main.py` and run the command `python main.py`
 
 
 ### Filtering Interference (Lean Filter)
