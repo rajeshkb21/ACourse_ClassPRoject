@@ -10,7 +10,7 @@ pltRvT.py
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_resistanceVtemperature(data):
+def plot_resistanceVtemperature(data, ax):
     Temp=[]
     avgresist=[]
     for T, dat in data.items():
@@ -21,12 +21,9 @@ def plot_resistanceVtemperature(data):
         Temp.append(T)
     
     fig = plt.figure()
-    plt.scatter(Temp,avgresist)
-    plt.ylim(0,1E7)
-    plt.xlim(0,310)
-    plt.xlabel("Temperature (K)")
-    plt.ylabel("Resistance (ohms)")
-    
-    plt.show()
-    plt.close(fig)
+    ax.scatter(Temp,avgresist)
+    ax.set_ylim(0,1E7)
+    ax.set_xlim(0,310)
+    ax.set_xlabel("Temperature (K)")
+    ax.set_ylabel("Resistance (ohms)")
     return

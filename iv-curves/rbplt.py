@@ -10,11 +10,9 @@ import matplotlib.colors as colors
 import matplotlib.cm as cm
 
 
-def plot_rainbow_like(Data,xKey,yKey,xLabel,yLabel,limits='Default',title=''):
+def plot_rainbow_like(Data,xKey,yKey,xLabel,yLabel,ax,limits='Default',title=''):
     # Data needs to be a dictionary of dictionaries of 1D numpy arrays with the same number of keys
     
-    fig = plt.figure()
-
     #set the color map, and normalize it on a log scale from 1 to 300
     #Color represents the temperature of the measurement
     cmap = plt.get_cmap('rainbow')
@@ -30,14 +28,12 @@ def plot_rainbow_like(Data,xKey,yKey,xLabel,yLabel,limits='Default',title=''):
     	colorVal = scalarMap.to_rgba(temp)
     	
     	#Plot normally
-    	plt.plot(x,y,color=colorVal)
+    	ax.plot(x,y,color=colorVal)
     	
-    plt.ylabel(yLabel)
-    plt.xlabel(xLabel)
-    plt.title(title)
-    plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+    ax.set_ylabel(yLabel)
+    ax.set_xlabel(xLabel)
+    ax.set_title(title)
+    ax.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     
-    plt.colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
+    ax.get_figure().colorbar(scalarMap,fraction=0.05,spacing='proportional',ticks=[1.6,2,5,10,50,100,200,300])
     
-    plt.show()
-    plt.close(fig)

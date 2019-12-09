@@ -124,6 +124,7 @@ for col in range(0,pI.shape[1]):
     mapV, mapI = filters.notchfilter(fileV,pI[:,col],45,55)
     plt.plot(mapV,mapI)
     plt.xlim([-1,1])   
+
 #Step 4: Plotting loaded files
 fig = plt.figure()
 plotErrors.plotErrors(data, errorData)
