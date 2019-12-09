@@ -2,6 +2,14 @@
 Team members: Rajesh Bollapragada, Yohan John, Katherine Quinn, David Jasinski, Marissa Brennan, Sriram Boppana, Travis Oneil, Cole Caynoski, Becky Sondelski, Emily Cheng, Hannah Bower, Katelyn Angeliu 
 
 ## Project Documentation
+### Running Code
+
+Go to 'iv_curves/main.py' and run the command 
+'''
+python main.py
+'''
+
+
 ### Filtering Interference (Lean Filter)
 
 The functions provided in the filter.py file were tested in the analysis.py file. The first function fft(v,i) was used in the consecutive function to transpose the 
